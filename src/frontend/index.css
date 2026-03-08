@@ -1,0 +1,154 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Fonts ─────────────────────────────────────────────── */
+@font-face {
+  font-family: "Fraunces";
+  src: url("/assets/fonts/Fraunces.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Crimson Pro";
+  src: url("/assets/fonts/CrimsonPro.woff2") format("woff2");
+  font-weight: 200 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Cabinet Grotesk";
+  src: url("/assets/fonts/CabinetGrotesk.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+/* ─── Design Tokens ─────────────────────────────────────── */
+@layer base {
+  :root {
+    --radius: 0.5rem;
+
+    /* Warm parchment + deep saffron + terracotta palette */
+    --background:    0.97 0.012 75;       /* warm cream parchment */
+    --foreground:    0.22 0.04 40;        /* deep warm brown */
+
+    --card:          0.99 0.008 70;       /* off-white card */
+    --card-foreground: 0.22 0.04 40;
+
+    --popover:       0.99 0.008 70;
+    --popover-foreground: 0.22 0.04 40;
+
+    --primary:       0.52 0.18 46;        /* terracotta saffron */
+    --primary-foreground: 0.99 0.005 80;  /* near-white */
+
+    --secondary:     0.92 0.03 70;        /* muted warm sand */
+    --secondary-foreground: 0.30 0.06 40;
+
+    --muted:         0.94 0.015 72;
+    --muted-foreground: 0.52 0.04 50;
+
+    --accent:        0.68 0.16 55;        /* warm gold accent */
+    --accent-foreground: 0.15 0.03 35;
+
+    --destructive:   0.55 0.22 22;
+    --destructive-foreground: 0.99 0 0;
+
+    --border:        0.86 0.025 65;
+    --input:         0.88 0.02 65;
+    --ring:          0.52 0.18 46;
+
+    --chart-1: 0.646 0.222 41.116;
+    --chart-2: 0.6 0.118 184.704;
+    --chart-3: 0.398 0.07 227.392;
+    --chart-4: 0.828 0.189 84.429;
+    --chart-5: 0.769 0.188 70.08;
+
+    --sidebar: 0.95 0.018 72;
+    --sidebar-foreground: 0.22 0.04 40;
+    --sidebar-primary: 0.52 0.18 46;
+    --sidebar-primary-foreground: 0.99 0.005 80;
+    --sidebar-accent: 0.92 0.03 70;
+    --sidebar-accent-foreground: 0.30 0.06 40;
+    --sidebar-border: 0.86 0.025 65;
+    --sidebar-ring: 0.52 0.18 46;
+  }
+
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Cabinet Grotesk", sans-serif;
+  }
+}
+
+/* ─── Utilities ─────────────────────────────────────────── */
+@layer utilities {
+  .font-display {
+    font-family: "Fraunces", serif;
+  }
+  .font-serif {
+    font-family: "Crimson Pro", serif;
+  }
+  .font-sans {
+    font-family: "Cabinet Grotesk", sans-serif;
+  }
+
+  /* Animated underline for links */
+  .link-hover {
+    @apply relative;
+  }
+  .link-hover::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-0 h-px bg-primary transition-all duration-300;
+  }
+  .link-hover:hover::after {
+    @apply w-full;
+  }
+
+  /* Card hover accent */
+  .card-accent-hover {
+    @apply border-t-2 border-t-transparent transition-all duration-300;
+  }
+  .card-accent-hover:hover {
+    border-top-color: oklch(var(--primary));
+  }
+
+  /* Hero top decorative bar */
+  .page-top-bar::before {
+    content: '';
+    display: block;
+    height: 3px;
+    background: oklch(var(--primary));
+    width: 100%;
+  }
+}
+
+/* ─── Grain texture overlay ─────────────────────────────── */
+.grain-bg::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  z-index: 1000;
+  opacity: 0.35;
+  mix-blend-mode: multiply;
+}
+
+/* ─── Decorative divider ────────────────────────────────── */
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.divider-ornament::before,
+.divider-ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: oklch(var(--border));
+}
